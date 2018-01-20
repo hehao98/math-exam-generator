@@ -15,16 +15,16 @@ fractions.
 4. Can use brackets to generate more complex exercises.
 6. English and Chinese language support.
 #### Compile
-1. This project is based on CMake, and it should work well on any Unix
-based OS, since it only use standard C/C++ libraries and several POSIX
-APIs.
-2. This program use *googletest* to create unit tests. The steps to
+1. This project is based on CMake. I personally use Clion for most of
+the development, but it should also work well on any Unix-alike OS using 
+CMake, since it only use standard C/C++ libraries and several POSIX APIs.
+2. This program use `googletest` to create unit tests. The steps to
 download, compile and link it are already included in the CMake script.
 Ideally it should work automatically.
 #### How to Use
-Usage: `math-exam-generator \[--total num\] \[--minop num\]
-\[--maxop num\] \[--minval num\] \[--maxval num\] \[--add\] \[--sub\]
-\[--multi\] \[--div\] \[--frac\] \[--en/-ch\] \[> filename.txt\]*`  
+Usage: `math-exam-generator [--total num] [--minop num]
+[--maxop num] [--minval num] [--maxval num] [--add] [--sub]
+[--multi] [--div] [--frac] [--en/-ch] [> filename.txt]*`  
 For example:  
 `math-exam-generator --total 10 --minop 2 --maxop 5 --minval -100
 --maxval 100 --add --sub --multi --div --frac --en > paper.txt`  
