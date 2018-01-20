@@ -22,12 +22,12 @@ APIs.
 download, compile and link it are already included in the CMake script.
 Ideally it should work automatically.
 #### How to Use
-Usage: *math-exam-generator \[--total num\] \[--minop num\]
+Usage: `math-exam-generator \[--total num\] \[--minop num\]
 \[--maxop num\] \[--minval num\] \[--maxval num\] \[--add\] \[--sub\]
-\[--multi\] \[--div\] \[--frac\] \[--en/-ch\] \[> filename.txt\]*
-For example:
-    *math-exam-generator --total 10 --minop 2 --maxop 5 --minval -100
---maxval 100 --add --sub --multi --div --frac --en > paper.txt*
+\[--multi\] \[--div\] \[--frac\] \[--en/-ch\] \[> filename.txt\]*`  
+For example:  
+`math-exam-generator --total 10 --minop 2 --maxop 5 --minval -100
+--maxval 100 --add --sub --multi --div --frac --en > paper.txt`  
 will generate an english exam paper with 10 questions, each question
 contains 2 operands at minimum, 5 operands at maximum, use numbers
 ranging from \[-100, 100\], and can contain addition, subtraction,
