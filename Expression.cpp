@@ -3,6 +3,7 @@
 //
 
 #include <random>
+#include <cassert>
 #include <iostream>
 
 #include "Expression.h"
@@ -174,10 +175,11 @@ DivisionExpression::~DivisionExpression()
 Expression *generateExpression(int minOps, int maxOps,
                                int minValue, int maxValue, int flags)
 {
+    const int BUFSIZE = 1024;
     int operandCount = getRandomNumber(minOps, maxOps);
     int operatorCount = operandCount - 1;
-    auto *operands = new Fraction[operandCount];
-    auto *operators = new int[operatorCount];
+    auto *operands = new Fraction[operandCount + BUFSIZE];
+    auto *operators = new int[operatorCount + BUFSIZE];
 
     for (int i = 0; i < operandCount; ++i)
     {
@@ -193,7 +195,7 @@ Expression *generateExpression(int minOps, int maxOps,
 
     for (int i = 0; i < operatorCount; ++i)
     {
-        int buf[16], size = 0;
+        int buf[BUFSIZE], size = 0;
         if (flags & ALLOW_ADD)
         {
             buf[size++] = ADD;

@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 
 const static int BUF_SIZE =  1024;
 
@@ -30,25 +31,37 @@ Fraction::Fraction(int num, int denom) : numerator(num), denominator(denom)
 
 void Fraction::simplify()
 {
+    bool negative = false;
+
     if (numerator == 0)
     {
         denominator = 1;
         return;
     }
 
-    if ((numerator < 0 && denominator < 0)
-            || (numerator > 0 && denominator < 0))
+    if (numerator < 0 && denominator < 0)
     {
         numerator = -numerator;
         denominator = -denominator;
     }
 
-    int tmp;
-    while ((tmp = gcd(numerator, denominator)) != 1 && tmp != 0)
+    if (numerator * denominator < 0)
     {
-        numerator   /= tmp;
-        denominator /= tmp;
+        negative = true;
     }
+
+    int absNum   = abs(numerator);
+    int absDenom = abs(denominator);
+    int tmp;
+    while ((tmp = gcd(absNum, absDenom)) > 1)
+    {
+        absNum   /= tmp;
+        absDenom /= tmp;
+    }
+    numerator   = absNum;
+    denominator = absDenom;
+    if (negative) numerator = -numerator;
+    return;
 }
 
 Fraction Fraction::operator+(const Fraction &f) const
