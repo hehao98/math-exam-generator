@@ -2,7 +2,7 @@
 // Expression class can describe any mathematical expression
 // with +-/* operators and int/fraction operands.
 //
-// Use generateExpression() interface to get a randomly generated Expression\
+// Use generateExpression() function to get a randomly generated Expression,
 // Use evaluate() method to get its value, and use toString() method to get its
 // string representation.
 //
@@ -15,46 +15,28 @@
 #include <string>
 #include "Fraction.h"
 
-enum ValueType
-{
-    TYPE_INT,
-    TYPE_FRACTION,
-};
-
-struct Value
-{
-    ValueType type;
-    union
-    {
-        int      intValue;
-        Fraction fractionValue;
-    } val;
-
-    Value operator+(const Value &v) const;
-    Value operator-(const Value &v) const;
-    Value operator*(const Value &v) const;
-    Value operator/(const Value &v) const;
-    std::string toString() const;
-};
 
 class Expression
 {
 public:
-    virtual ~Expression();
-    virtual Value evaluate() = 0;
-    virtual std::string toString() = 0;
+    virtual ~Expression() = default;
+    virtual Fraction evaluate() = 0;
+    virtual int priority() const = 0;
+    virtual std::string toString() const = 0;
 };
 
 class ValueExpression : public Expression
 {
 public:
-    explicit ValueExpression(Value value) : value_(value) {}
+    explicit ValueExpression(Fraction value) : value_(value) {}
 
-    virtual Value evaluate() { return value_; }
+    Fraction evaluate() override { return value_; }
 
-    virtual std::string toString();
+    int priority() const override { return 3; }
+
+    std::string toString() const override;
 private:
-    Value value_;
+    Fraction value_;
 };
 
 class AdditionExpression : public Expression
@@ -62,10 +44,13 @@ class AdditionExpression : public Expression
 public:
     explicit AdditionExpression(Expression *left, Expression *right)
             : left_(left), right_(right) {}
+    ~AdditionExpression() override;
 
-    virtual Value evaluate();
+    Fraction evaluate() override;
 
-    virtual std::string toString();
+    int priority() const override { return 1; }
+
+    std::string toString() const override;
 private:
     Expression *left_;
     Expression *right_;
@@ -76,10 +61,13 @@ class SubtractionExpression : public Expression
 public:
     explicit SubtractionExpression(Expression *left, Expression *right)
             : left_(left), right_(right) {}
+    ~SubtractionExpression() override;
 
-    virtual Value evaluate();
+    Fraction evaluate() override;
 
-    virtual std::string toString();
+    int priority() const override { return 1; }
+
+    std::string toString() const override;
 private:
     Expression *left_;
     Expression *right_;
@@ -90,10 +78,13 @@ class MultiplicationExpression : public Expression
 public:
     explicit MultiplicationExpression(Expression *left, Expression *right)
             : left_(left), right_(right) {}
+    ~MultiplicationExpression() override;
 
-    virtual Value evaluate();
+    Fraction evaluate() override;
 
-    virtual std::string toString();
+    int priority() const override { return 2; }
+
+    std::string toString() const override;
 private:
     Expression *left_;
     Expression *right_;
@@ -104,10 +95,13 @@ class DivisionExpression : public Expression
 public:
     explicit DivisionExpression(Expression *left, Expression *right)
             : left_(left), right_(right) {}
+    ~DivisionExpression() override;
 
-    virtual Value evaluate();
+    Fraction evaluate() override;
 
-    virtual std::string toString();
+    int priority() const override { return 2; }
+
+    std::string toString() const override;
 private:
     Expression *left_;
     Expression *right_;
@@ -121,7 +115,7 @@ const int ALLOW_FRACTION = 0x10;
 
 //
 // generateExpression: Randomly generate expression with parameters given,
-//                     Caller MUST manually free the memory.
+//                     Caller MUST manually free the memory using delete.
 // Parameters: minOps   - minimum number of operands in the expression.
 //             maxOps   - maximum number of operands in the expression.
 //             minValue - minimum operator value in the expression.
@@ -131,5 +125,6 @@ const int ALLOW_FRACTION = 0x10;
 //
 Expression *generateExpression(int minOps, int maxOps,
                                int minValue, int maxValue, int flags);
+
 
 #endif //MATH_EXAM_GENERATOR_EXPRESSION_H

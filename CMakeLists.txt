@@ -32,5 +32,5 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 include_directories("${gtest_SOURCE_DIR}}/include")
 
 add_executable(math-exam-generator main.cpp Fraction.cpp Expression.cpp)
-add_executable(unit-test UnitTest.cpp FractionTest.cpp Fraction.cpp)
+add_executable(unit-test UnitTest.cpp FractionTest.cpp Fraction.cpp ExpressionTest.cpp Expression.cpp)
 target_link_libraries(unit-test gtest_main)

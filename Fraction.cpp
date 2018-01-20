@@ -44,7 +44,7 @@ void Fraction::simplify()
     }
 
     int tmp;
-    while ((tmp = gcd(numerator, denominator)) != 1)
+    while ((tmp = gcd(numerator, denominator)) != 1 && tmp != 0)
     {
         numerator   /= tmp;
         denominator /= tmp;
