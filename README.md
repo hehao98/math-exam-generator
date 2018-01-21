@@ -13,7 +13,6 @@ fractions.
 2. Allow generating an answer sheet along with the exam paper.
 3. Allow expressions with more than two operands.
 4. Can use brackets to generate more complex exercises.
-6. English and Chinese language support.
 #### Compile
 1. This project is based on CMake. I personally use Clion for most of
 the development, but it should also work well on any Unix-alike OS using 
@@ -22,13 +21,14 @@ CMake, since it only use standard C/C++ libraries and several POSIX APIs.
 download, compile and link it are already included in the CMake script.
 Ideally it should work automatically.
 #### How to Use
-Usage: `math-exam-generator [--total num] [--minop num]
+Usage:
+`math-exam-generator [--total num] [--minop num]
 [--maxop num] [--minval num] [--maxval num] [--add] [--sub]
-[--multi] [--div] [--frac] [--en/-ch] [> filename.txt]*`  
+[--multi] [--div] [--frac] [> filename.txt]*`
 For example:  
 `math-exam-generator --total 10 --minop 2 --maxop 5 --minval -100
---maxval 100 --add --sub --multi --div --frac --en > paper.txt`  
-will generate an english exam paper with 10 questions, each question
+--maxval 100 --add --sub --multi --div --frac > paper.txt`
+will generate an exam paper with 10 questions, each question
 contains 2 operands at minimum, 5 operands at maximum, use numbers
 ranging from \[-100, 100\], and can contain addition, subtraction,
 multiplication, division and fractions. The result will be put into
